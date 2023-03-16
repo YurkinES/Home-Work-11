@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class Main {
@@ -5,8 +6,12 @@ public class Main {
         int year = 3824;
         int clientOS = 0;
         int clientDeviceYear = LocalDate.now().getYear();
+        int deliveryDistance = 56;
         leapYearVerification(year);
         osUpdate(clientOS, clientDeviceYear);
+        cardDelivery(deliveryDistance);
+        int cardDeliveryDays = cardDelivery(deliveryDistance);
+        System.out.println("Требуется " + cardDeliveryDays + " дня(ень) доставки");
     }
 
     public static void leapYearVerification(int leapYear) {
@@ -32,5 +37,19 @@ public class Main {
         } else if (clientOS == androidOS && clientDeviceYear < 2015) {
             System.out.println("Установите облегченную версию приложения для Android по ссылке");
         }
+    }
+
+    public static int cardDelivery(int Distance) {
+        int daysDelivery = 0;
+        if (Distance < 20) {
+            daysDelivery = daysDelivery + 1;
+        } else if (Distance >= 20 && Distance < 60){
+            daysDelivery = daysDelivery + 2;
+        } else if (Distance >= 60 && Distance <= 100) {
+            daysDelivery = daysDelivery + 3;
+        } else {
+            throw new RuntimeException("Свыше 100 км доставка не производится");
+        }
+        return daysDelivery;
     }
 }
